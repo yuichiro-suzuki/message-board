@@ -7,13 +7,16 @@
     <% @messages.each do |message| %>
       <span class="label label-info"><%= message.name %></span>
       <%= message.body %>
+      (<%= link_to "edit" , edit_message_path(message) %>
+      <%= link_to "destroy" , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
+      )
       <br>
     <% end %>
   </div>
 </div>
 
-<% #部分テンプレートを読み込んでいる %>
-<%= render 'form' %>
+ <% #部分テンプレートを読み込んでいる %>
+ <%= render 'form' %>
 
 <%= form_for(@message, html: {class: "form-horizontal"}) do |f| %>
   <% if @message.errors.present? %>
@@ -29,13 +32,4 @@
     </div>
   <% end %>
   
-  <div class="form-group">名前:
-  <%= f.text_field :name %>
-  </div>
-  <div class="form-group">内容:
-  <%= f.text_area :body, :size=>"20x3" %>
-  </div>
-  <div class="form-group">
-  <%= f.submit class: "btn btn-sm btn-primary" %>
-  </div>
 <% end %>
