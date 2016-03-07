@@ -12,12 +12,27 @@
   </div>
 </div>
 
-<%= form_for(@message) do |f| %>
-  名前<br>
+<%= form_for(@message, html: {class: "form-horizontal"}) do |f| %>
+  <% if @message.errors.present? %>
+    <div class="alert alert-danger">
+      <%= alert %>
+      <ul>
+        <% @message.errors.full_messages.each do |full_message| %>
+          <li>
+            <%= full_message %>
+          </li>
+        <% end %> 
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group">名前:
   <%= f.text_field :name %>
-  <br>
-  内容<br>
+  </div>
+  <div class="form-group">内容:
   <%= f.text_area :body, :size=>"20x3" %>
-  <br>
+  </div>
+  <div class="form-group">
   <%= f.submit class: "btn btn-sm btn-primary" %>
+  </div>
 <% end %>
